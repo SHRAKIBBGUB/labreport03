@@ -1,54 +1,52 @@
-# labreport03
+
+
+# 🎨 Graph Coloring Problem (Backtracking)
+
+This Python program solves the **Graph Coloring** problem using **backtracking**. It assigns colors to graph vertices such that no two adjacent vertices share the same color.
+
+---
+
+## 📌 Description
+
+* Takes user input for:
+
+  * Number of vertices
+  * Number of edges
+  * Number of available colors
+  * Edge list (as vertex pairs)
+* Uses recursive backtracking to find a valid coloring.
+* If successful, prints the color assignment for each vertex.
+
+---
 
 
 
+## 🧠 Key Functions
+
+* `is_safe(graph, color_assignment, vertex, color)`
+  Checks if a color can be assigned to a vertex without conflict.
+
+* `graph_coloring_util(graph, k, color_assignment, vertex)`
+  Recursive function that tries to assign colors.
+
+---
+
+## 📤 Sample Output
+
+```
+Graph Coloring Problem
+
+Coloring Possible with 3 Colors  
+Color Assignment: [1, 2, 3, 1]
+```
+
+---
+
+## ❗ Notes
+
+* Vertices are assumed to be **0-indexed**.
+* Works only for **undirected graphs**.
+* May not be optimal for large graphs due to the backtracking nature.
 
 
 
-
-
-
-def is_safe(graph, color_assignment, vertex, color):
-    for neighbor in graph[vertex]:
-        if color_assignment[neighbor] == color:
-            return False
-    return True
-
-def graph_coloring_util(graph, k, color_assignment, vertex):
-    if vertex == len(color_assignment):
-        return True
-    
-    for color in range(1, k + 1):
-        if is_safe(graph, color_assignment, vertex, color):
-            color_assignment[vertex] = color
-            if graph_coloring_util(graph, k, color_assignment, vertex + 1):
-                return True
-            color_assignment[vertex] = 0
-    return False
-
-def main():
-    print("Graph Coloring Problem")
-    
-    
-    N = int(input("Enter number of vertices: "))
-    M = int(input("Enter number of edges: "))
-    K = int(input("Enter number of colors: "))
-    
-   
-    graph = [[] for _ in range(N)]
-    print("Enter edges (vertex pairs, 0-based):")
-    for _ in range(M):
-        u, v = map(int, input().split())
-        graph[u].append(v)
-        graph[v].append(u)
-    
-   
-    color_assignment = [0] * N
-    if graph_coloring_util(graph, K, color_assignment, 0):
-        print(f"\nColoring Possible with {K} Colors")
-        print("Color Assignment:", color_assignment)
-    else:
-        print(f"\nColoring Not Possible with {K} Colors")
-
-if __name__ == "__main__":
-    main()
